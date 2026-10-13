@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Науковий Портал | Шкільні та студентські дослідження</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-card-hover: rgba(255, 255, 255, 0.06);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.07) 0%, transparent 40%);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(10, 15, 29, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--gradient-accent);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid & Cards */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .subject-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .subject-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .section-block h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-block p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .facts-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .facts-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .facts-list li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: rgba(10, 15, 29, 0.9);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайту та Навігація -->
+    <header>
+        <a href="#" class="logo">
+            <span>⚡</span> Науковий Портал
+        </a>
+        <nav>
+            <a href="#biology" class="nav-btn">Біологія</a>
+            <a href="#math" class="nav-btn">Математика</a>
+            <a href="#physics" class="nav-btn">Фізика</a>
+            <a href="#chemistry" class="nav-btn">Хімія</a>
+            <a href="#astronomy" class="nav-btn">Астрономія</a>
+        </nav>
+    </header>
+
+    <!-- Основний контент -->
+    <main>
+        <section class="hero-section">
+            <h1>Шкільні та студентські наукові дослідження</h1>
+            <p>Інтерактивний довідник для поглибленого вивчення ключових природничих і точних наук, їх реального застосування та цікавих фактів.</p>
+        </section>
+
+        <div class="subjects-grid">
+            <!-- Біологія -->
+            <article id="biology" class="subject-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">🧬</div>
+                        <h2>Біологія</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="section-block">
+                            <h3>Про науку</h3>
+                            <p>Наука про живі організми, їхню будову, походження, еволюцію та взаємодію з навколишнім середовищем.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Застосування</h3>
+                            <p>Сучасна медицина, фармакологія, біотехнології, генна інженерія та екологічний моніторинг довкілля.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Цікаві факти</h3>
+                            <ul class="facts-list">
+                                <li>ДНК людини збігається з ДНК банана приблизно на 50%.</li>
+                                <li>У людському тілі міститься більше бактерій, ніж власних клітин.</li>
+                                <li>Деякі види медуз (Turritopsis dohrnii) вважаються біологічно безсмертними.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Математика -->
+            <article id="math" class="subject-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">📐</div>
+                        <h2>Математика</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="section-block">
+                            <h3>Про науку</h3>
+                            <p>Фундаментальна наука про структури, порядок та відносини, що виникла на основі операцій з рахунком і вимірюванням.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Застосування</h3>
+                            <p>Штучний інтелект, криптографія та захист даних, фінансове моделювання, прогнозування погоди та комп'ютерна графіка.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Цікаві факти</h3>
+                            <ul class="facts-list">
+                                <li>Число «Пі» (π) має нескінченну та нециклічну послідовність цифр після коми.</li>
+                                <li>Нуль (0) — єдине дійсне число, яке неможливо записати римськими цифрами.</li>
+                                <li>Парадокс днів народження: у групі з 23 людей ймовірність того, що двоє святкують день народження в один день, перевищує 50%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Фізика -->
+            <article id="physics" class="subject-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">⚛️</div>
+                        <h2>Фізика</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="section-block">
+                            <h3>Про науку</h3>
+                            <p>Природнича наука, що вивчає загальні закони руху матерії, структуру і властивості Всесвіту на всіх рівнях.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Застосування</h3>
+                            <p>Енергетика, створення напівпровідників і смартфонів, квантові обчислення, космічні польоти та авіація.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Цікаві факти</h3>
+                            <ul class="facts-list">
+                                <li>Час плине повільніше для об'єктів, що рухаються з величезною швидкістю або перебувають у сильній гравітації.</li>
+                                <li>Блискавка вп'яте гарячіша за поверхню Сонця.</li>
+                                <li>Квантова заплутаність дозволяє частинкам миттєво передавати інформацію на будь-яку відстань.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Хімія -->
+            <article id="chemistry" class="subject-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">🧪</div>
+                        <h2>Хімія</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="section-block">
+                            <h3>Про науку</h3>
+                            <p>Наука про речовини, їхній склад, будову, властивості та перетворення, що супроводжуються зміною складу.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Застосування</h3>
+                            <p>Виробництво нових матеріалів (полімерів, графену), харчова промисловість, косметика, екологічні фільтри.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Цікаві факти</h3>
+                            <ul class="facts-list">
+                                <li>Складатись повністю з чистої води організм не може — у тілі людини міститься близько 10 грамів розчиненого золота.</li>
+                                <li>Скло насправді не є твердим тілом; воно поводиться як надзвичайно в'язка рідина.</li>
+                                <li>Гаряча вода може замерзнути швидше за холодну за певних умов (ефект Мпемби).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Астрономія -->
+            <article id="astronomy" class="subject-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">🔭</div>
+                        <h2>Астрономія</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="section-block">
+                            <h3>Про науку</h3>
+                            <p>Найдавніша природнича наука про небесні тіла, походження, еволюцію та будову Всесвіту в цілому.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Застосування</h3>
+                            <p>Супутникові навігаційні системи (GPS), космічний зв'язок, моніторинг небезпечних астероїдів та вивчення клімату.</p>
+                        </div>
+                        <div class="section-block">
+                            <h3>Цікаві факти</h3>
+                            <ul class="facts-list">
+                                <li>Нейтронні зорі настільки щільні, що одна чайна ложка їхньої речовини важить близько 6 мільярдів тон.</li>
+                                <li>На Венері день довший за її рік (планета робить оберт навколо осі довше, ніж навколо Сонця).</li>
+                                <li>Коли ми дивимося на далекі зірки, ми бачимо їхнє минуле, оскільки світло йде до нас мільйони років.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Підвал (Footer) -->
+    <footer>
+        <p>&copy; 2026 Науковий Портал. Освітній проєкт розроблений спеціально для шкільних та студентських наукових робіт.</p>
+    </footer>
+
+</body>
+</html>
